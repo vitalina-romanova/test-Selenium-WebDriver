@@ -12,11 +12,13 @@ public class BaseTest {
     public static WebDriver driver;
     public static WebDriverWait wait;
 
-    @Before
-    public void start() {
+    static {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 20);
     }
+
+    @Before
+    public void start() {}
 
     @Step
     public void loginByAdmin() throws InterruptedException {
@@ -25,5 +27,11 @@ public class BaseTest {
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         wait.until(ExpectedConditions.titleIs("My Store"));
+    }
+
+    @Step
+    public void loginInMyStore() {
+        driver.get("http://localhost/litecart/en/");
+        wait.until(ExpectedConditions.titleIs("Online Store | My Store"));
     }
 }
