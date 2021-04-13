@@ -1,6 +1,7 @@
 package SoftwareTestingTest;
 
 import io.qameta.allure.Step;
+import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,4 +41,9 @@ public class BaseTest {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
         wait.until(ExpectedConditions.titleIs("My Store"));
     }
+
+//    @After
+//    public void stopDriver(){
+//        driver.quit();
+//    }
 }
