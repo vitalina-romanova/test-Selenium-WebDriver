@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
 import java.util.List;
 
 public class LeftMenuTestNew extends BaseTest {
@@ -15,22 +14,30 @@ public class LeftMenuTestNew extends BaseTest {
     public void leftMenuTest() throws InterruptedException {
         loginByAdmin();
         List<WebElement> menu = driver.findElements(By.cssSelector("li#app-"));
-        int size = menu.size();
-        for (int i=0; i<size; i++) {
+        int sizeMenu = menu.size();
+        for (int i=0; i<sizeMenu; i++) {
             WebElement current = menu.get(i);
             Thread.sleep(500);
             current.click();
-            WebElement header = driver.findElement(By.cssSelector(selectorH1));
-            Assert.assertTrue(header.isDisplayed());
-            menu = driver.findElements(By.id("app-"));
+            List<WebElement> subMenu = driver.findElements(By.cssSelector("li[id^='doc-']"));
+            int sizeSubMenu = subMenu.size();
+            if (subMenu.size() > 0 ){
+                for (int j=0; j<sizeSubMenu; j++) {
+                    WebElement doc = subMenu.get(j);
+                    Thread.sleep(500);
+                    doc.click();
+                    WebElement header = driver.findElement(By.cssSelector(selectorH1));
+                    Assert.assertTrue(header.isDisplayed());
+                    subMenu = driver.findElements(By.cssSelector("li[id^='doc-']"));
+                }
+                menu = driver.findElements(By.id("app-"));
+            }
+            else {
+                WebElement header = driver.findElement(By.cssSelector(selectorH1));
+                Assert.assertTrue(header.isDisplayed());
+                menu = driver.findElements(By.id("app-"));
+            }
         }
     }
-
-//    private WebElement findHeader(String selector) throws InterruptedException {
-//        WebElement logotype = driver.findElement(By.cssSelector(selector));
-//        Thread.sleep(800);
-//        logotype.click();
-//        return driver.findElement(By.cssSelector(selectorH1));
-//    }
 }
 
