@@ -37,13 +37,16 @@ public class BaseTest {
     }
 
     @Step
-    public void openCountriesPage(){
+    public void openCountriesPage() {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
-        wait.until(ExpectedConditions.titleIs("My Store"));
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
+        wait.until(ExpectedConditions.titleIs("Countries | My Store"));
     }
 
-//    @After
-//    public void stopDriver(){
-//        driver.quit();
-//    }
+    @After
+    public void stopDriver(){
+        driver.quit();
+    }
 }
