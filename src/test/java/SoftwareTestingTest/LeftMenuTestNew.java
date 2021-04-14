@@ -12,7 +12,6 @@ public class LeftMenuTestNew extends BaseTest {
 
     @Test
     public void leftMenuTest() throws InterruptedException {
-        loginByAdmin();
         List<WebElement> menu = driver.findElements(By.cssSelector("li#app-"));
         int sizeMenu = menu.size();
         for (int i=0; i<sizeMenu; i++) {

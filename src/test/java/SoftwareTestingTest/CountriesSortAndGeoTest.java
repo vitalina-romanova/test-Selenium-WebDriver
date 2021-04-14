@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountriesSortTest  extends BaseTest {
+public class CountriesSortAndGeoTest  extends BaseTest {
 
 
     private void assertABC(List<String> strings){
@@ -50,5 +50,27 @@ public class CountriesSortTest  extends BaseTest {
         }
         assertABC(allCountries);
         System.out.println(allCountries);
+    }
+
+    @Test
+    public void sortGoeZonesTest() throws InterruptedException {
+        openGeoZonesPage();
+        List<WebElement> editCountry = driver.findElements(By.cssSelector("i[class='fa fa-pencil']"));
+        int size = editCountry.size();
+        for (int i = 0; i < size; i++) {
+            WebElement current = editCountry.get(i);
+            Thread.sleep(500);
+            current.click();
+            wait.until(ExpectedConditions.titleIs("Edit Geo Zone | My Store"));
+            List<WebElement> zoneElements = driver.findElements(By.cssSelector("select[name*='[zone_code]'] option[selected*='selected']"));
+            List<String> allZones = new ArrayList<String>();
+            for (WebElement zone : zoneElements) {
+                String nameZone = zone.getAttribute("innerText");
+                allZones.add(nameZone);
+            }
+            assertABC(allZones);
+            driver.navigate().back();
+            editCountry = driver.findElements(By.cssSelector("i[class='fa fa-pencil']"));
+        }
     }
 }

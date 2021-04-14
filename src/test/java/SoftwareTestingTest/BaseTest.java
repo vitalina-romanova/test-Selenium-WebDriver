@@ -19,9 +19,7 @@ public class BaseTest {
     }
 
     @Before
-    public void start() {}
 
-    @Step
     public void loginByAdmin() throws InterruptedException {
         driver.get("http://localhost/litecart/admin/login.php");
         driver.findElement(By.name("username")).sendKeys("admin");
@@ -39,14 +37,17 @@ public class BaseTest {
     @Step
     public void openCountriesPage() {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
-        driver.findElement(By.name("username")).sendKeys("admin");
-        driver.findElement(By.name("password")).sendKeys("admin");
-        driver.findElement(By.name("login")).click();
         wait.until(ExpectedConditions.titleIs("Countries | My Store"));
     }
 
-    @After
-    public void stopDriver(){
-        driver.quit();
+    @Step
+    public void openGeoZonesPage() {
+        driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
+        wait.until(ExpectedConditions.titleIs("Geo Zones | My Store"));
     }
+
+//    @After
+//    public void stopDriver(){
+//        driver.quit();
+//    }
 }
