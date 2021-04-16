@@ -2,7 +2,6 @@ package SoftwareTestingTest;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -34,27 +33,23 @@ public class YellowDuckPriseTest extends BaseTest {
         openInMyStore();
         WebElement regularPriceElement = driver.findElement(By.cssSelector("div#box-campaigns .regular-price"));
         String colorRegularPrice = regularPriceElement.getCssValue("color");
-        String tegRegularPrice = regularPriceElement.getAttribute("tagName");
-        Dimension sizeRegularPrice = regularPriceElement.getSize();
-        int heightRegularPrice = sizeRegularPrice.getHeight();
-        int widthRegularPrice = sizeRegularPrice.getWidth();
         List<String> rgbaRegularPrice = Arrays.asList(colorRegularPrice.substring( 5, 19)
                 .replaceAll("\\s", "").split(","));
+        String tegRegularPrice = regularPriceElement.getAttribute("tagName");
+        String sizeRegularPrice = regularPriceElement.getCssValue("font-size");
 
         WebElement campaignPriceElement = driver.findElement(By.cssSelector("div#box-campaigns .campaign-price"));
         String colorCampaignPrice = campaignPriceElement.getCssValue("color");
-        String tegCampaignPrice = campaignPriceElement.getAttribute("tagName");
-        Dimension sizeCampaignPrice = campaignPriceElement.getSize();
-        int heightCampaignPrice = sizeCampaignPrice.getHeight();
-        int widthCampaignPrice = sizeCampaignPrice.getWidth();
         List<String> rgbaCampaignPrice = Arrays.asList(colorCampaignPrice.substring( 5, 14)
                 .replaceAll("\\s", "").split(","));
+        String tegCampaignPrice = campaignPriceElement.getAttribute("tagName");
+        String sizeCampaignPrice = campaignPriceElement.getCssValue("font-size");
 
         Assert.assertEquals(rgbaRegularPrice.get(0),rgbaRegularPrice.get(1),rgbaRegularPrice.get(2));
         Assert.assertEquals(tegRegularPrice,"S");
         Assert.assertEquals(rgbaCampaignPrice.get(1),rgbaCampaignPrice.get(2), "0");
         Assert.assertEquals(tegCampaignPrice,"STRONG");
-        Assert.assertTrue(heightCampaignPrice > heightRegularPrice || widthCampaignPrice > widthRegularPrice);
+        Assert.assertTrue(sizeCampaignPrice.compareTo(sizeRegularPrice) > 0);
     }
 
     @Test
@@ -69,23 +64,19 @@ public class YellowDuckPriseTest extends BaseTest {
         String tegRegular = regularElement.getAttribute("tagName");
         List<String> rgbaRegular = Arrays.asList(colorRegular.substring( 5, 19)
                 .replaceAll("\\s", "").split(","));
-        Dimension sizeRegular = regularElement.getSize();
-        int heightRegular = sizeRegular.getHeight();
-        int widthRegular = sizeRegular.getWidth();
+        String sizeRegular = regularElement.getCssValue("font-size");
 
         WebElement campaignElement = driver.findElement(By.cssSelector("div.price-wrapper .campaign-price"));
         String colorCampaign = campaignElement.getCssValue("color");
         String tegCampaign = campaignElement.getAttribute("tagName");
         List<String> rgbaCampaign = Arrays.asList(colorCampaign.substring( 5, 14)
                 .replaceAll("\\s", "").split(","));
-        Dimension sizeCampaign = campaignElement.getSize();
-        int heightCampaign = sizeCampaign.getHeight();
-        int widthCampaign = sizeCampaign.getWidth();
+        String sizeCampaign = campaignElement.getCssValue("font-size");
 
         Assert.assertEquals(rgbaRegular.get(0),rgbaRegular.get(1),rgbaRegular.get(2));
         Assert.assertEquals(tegRegular,"S");
         Assert.assertEquals(rgbaCampaign.get(1),rgbaCampaign.get(2), "0");
         Assert.assertEquals(tegCampaign,"STRONG");
-        Assert.assertTrue(heightCampaign > heightRegular || widthCampaign > widthRegular);
+        Assert.assertTrue(sizeCampaign.compareTo(sizeRegular) > 0);
     }
 }
