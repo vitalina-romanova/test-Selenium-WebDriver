@@ -10,20 +10,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class UserRegistrationTest extends BaseTest{
 
-    private final String TAX_ID = "1234567890";
+    private final String TAX_ID = getRandomNumber(10);
     private final String COMPANY = "Test Company";
     private final String FIRST_NAME = "Julius";
     private final String LAST_NAME = "Meinl";
     private final String ADDRESS = "200 W 33rd St, Austin, TX 78705, США";
-    private final String POSTCODE = getRandomNumber();
+    private final String POSTCODE = getRandomNumber(5);
     private final String CITY = "Austin";
     private final String COUNTRY = "United States";
     private final String STATE = "Texas";
     private final String EMAIL = getRandomString(8) + "@test.ru";
-    private final String PHONE = "+1111111111";
+    private final String PHONE = "+1" + getRandomNumber(10);
     private final String PASSWORD = "1q2w3e4r";
 
-    public static String getRandomNumber() { return RandomStringUtils.randomNumeric(5); }
+    public static String getRandomNumber(int length) { return RandomStringUtils.randomNumeric(length); }
 
     public static String getRandomString(int length) { return RandomStringUtils.randomAlphabetic(length); }
 
