@@ -10,7 +10,7 @@ public class StickerSaleTest extends BaseTest {
 
     @Test
     public void stickersFindTest() {
-        openInMyStore();
+        openMyStore();
         List<WebElement> items = driver.findElements(By.cssSelector("a.link[href*='rubber-ducks']"));
         for (WebElement element : items) {
             List<WebElement> stickers = element.findElements(By.cssSelector("div[class *= 'sticker']"));

@@ -30,7 +30,7 @@ public class BaseTest {
     }
 
     @Step
-    public void openInMyStore() {
+    public void openMyStore() {
         driver.get("http://localhost/litecart/en/");
         wait.until(ExpectedConditions.titleIs("Online Store | My Store"));
     }

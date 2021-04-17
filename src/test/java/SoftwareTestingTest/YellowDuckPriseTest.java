@@ -15,7 +15,7 @@ public class YellowDuckPriseTest extends BaseTest {
 
     @Test
     public void productNameTest() {
-        openInMyStore();
+        openMyStore();
         WebElement linkElement = driver.findElement(By.cssSelector(link));
         String nameWare = driver.findElement(By.cssSelector("div#box-campaigns div.name"))
                 .getAttribute("textContent");
@@ -30,7 +30,7 @@ public class YellowDuckPriseTest extends BaseTest {
 
     @Test
     public void campaignsPriseTest(){
-        openInMyStore();
+        openMyStore();
         WebElement regularPriceElement = driver.findElement(By.cssSelector("div#box-campaigns .regular-price"));
         String colorRegularPrice = regularPriceElement.getCssValue("color");
         List<String> rgbaRegularPrice = Arrays.asList(colorRegularPrice.substring( 5, 19)
@@ -54,7 +54,7 @@ public class YellowDuckPriseTest extends BaseTest {
 
     @Test
     public void yellowDuckPriseTest() {
-        openInMyStore();
+        openMyStore();
         WebElement linkElement = driver.findElement(By.cssSelector(link));
         linkElement.click();
         wait.until(ExpectedConditions.titleIs("Yellow Duck | Subcategory | Rubber Ducks | My Store"));
