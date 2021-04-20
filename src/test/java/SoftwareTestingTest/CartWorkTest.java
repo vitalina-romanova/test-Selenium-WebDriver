@@ -46,12 +46,14 @@ public class CartWorkTest extends BaseTest {
         driver.findElement(By.cssSelector("div#box-checkout-cart")).click();
         Thread.sleep(500);
 
+        WebElement orderSummary = driver.findElement(By.cssSelector("table[class='dataTable rounded-corners']"));
         List<WebElement> items = driver.findElements(By.cssSelector("button[name='remove_cart_item']"));
         for (int j=0; j<items.size(); j++){
             WebElement item = driver.findElement(By.cssSelector("button[name='remove_cart_item']"));
-            WebElement orderSummary = driver.findElement(By.cssSelector("table[class='dataTable rounded-corners']"));
             wait.until(ExpectedConditions.elementToBeClickable(item)).click();
             wait.until(ExpectedConditions.stalenessOf(orderSummary));
+            if (j != items.size() - 1)
+                orderSummary = driver.findElement(By.cssSelector("table[class='dataTable rounded-corners']"));
         }
     }
 }
