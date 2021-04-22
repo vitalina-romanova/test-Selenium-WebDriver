@@ -6,11 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
 
 public class AddNewProductTest extends BaseTest {
 
@@ -18,6 +15,14 @@ public class AddNewProductTest extends BaseTest {
     private final String FILE_NAME = "black_duck.png";
     private final String CODE_PRODUCT = getRandomNumber(6);
     private final String QUANTITY = getRandomNumber(1);
+    private final String DATE_VALID_FROM = "21042021";
+    private final String DATE_VALID_TO = "01012022";
+    private final String KEYWORDS = "duck";
+    private final String SHORT_DESC = "Black duck";
+    private final String DESCRIPTION = "This is a black duck, but it's actually a black cat. The impudent cat";
+    private final String HEAD_TITLE = "BLACK DUCK";
+    private final String META_DESCRIPTION = "black cat";
+    private final String PRICE = getRandomNumber(3);
 
     public static String getRandomNumber(int length) { return RandomStringUtils.randomNumeric(length); }
 
@@ -33,31 +38,46 @@ public class AddNewProductTest extends BaseTest {
         Thread.sleep(300);
         driver.findElement(By.cssSelector("a[href*='catalog&doc=catalog']")).click();
         driver.findElement(By.cssSelector("a[href*='edit_product']")).click();
-        WebElement status = driver.findElement(By.cssSelector("div#tab-general input[value='1']"));
-    //       Thread.sleep(300);
+
         WebElement categoriesRubberDucks = driver.findElement(By.cssSelector("input[data-name='Rubber Ducks']"));
         String checkedRubberDucks = categoriesRubberDucks.getAttribute("checked");
-        Thread.sleep(700);
+        Thread.sleep(500);
+
         if (checkedRubberDucks != "false") {
            categoriesRubberDucks.click();
-           driver.findElement(By.cssSelector("select[name='default_category_id']")).click();
-           wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("option[value='1']"))).click();
        }
 
         String filePath = getFile().getAbsolutePath();
+        driver.findElement(By.cssSelector("input[name='new_images[]']")).sendKeys(filePath);
+
         Actions action = new Actions(driver);
         action.click()
-           .click(status).sendKeys(Keys.TAB)
-                .pause(1000)
+                .click(driver.findElement(By.cssSelector("div#tab-general input[value='0']"))).sendKeys(Keys.TAB)
                 .sendKeys(NAME_PRODUCT).sendKeys(Keys.TAB)
-                .sendKeys(CODE_PRODUCT).sendKeys(Keys.TAB)
-                .moveToElement(driver.findElement(By.cssSelector("input[value='1-3']"))).click()
-                .moveToElement(driver.findElement(By.cssSelector("input[name='quantity']"))).doubleClick()
-                .sendKeys(QUANTITY).sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.TAB)
-                .moveToElement(driver.findElement(By.cssSelector("input[name='date_valid_from']")), 75, 0)
-                .click()
+                .sendKeys(CODE_PRODUCT)
+                .click(driver.findElement(By.cssSelector("select[name='default_category_id']"))).sendKeys("Rubber Ducks")
+                .click(driver.findElement(By.cssSelector("input[value='1-3']")))
+                .doubleClick(driver.findElement(By.cssSelector("input[name='quantity']"))).sendKeys(QUANTITY)
+                .sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.TAB).sendKeys(Keys.TAB)
+                .moveToElement(driver.findElement(By.cssSelector("input[name='date_valid_from']"))).click()
+                .sendKeys(DATE_VALID_FROM).sendKeys(Keys.TAB).sendKeys(DATE_VALID_TO)
+                .click(driver.findElement(By.cssSelector("a[href*='information']")))
+                .pause(500)
+                .click(driver.findElement(By.cssSelector("select[name='manufacturer_id']"))).sendKeys("ACME Corp.")
+                .click(driver.findElement(By.cssSelector("input[name='keywords']")))
+                .sendKeys(KEYWORDS).sendKeys(Keys.TAB)
+                .sendKeys(SHORT_DESC).sendKeys(Keys.TAB)
+                .sendKeys(DESCRIPTION).sendKeys(Keys.TAB)
+                .sendKeys(HEAD_TITLE).sendKeys(Keys.TAB)
+                .sendKeys(META_DESCRIPTION)
+                .click(driver.findElement(By.cssSelector("a[href*='prices']")))
+                .pause(500)
+                .doubleClick(driver.findElement(By.cssSelector("input[name='purchase_price']"))).sendKeys(PRICE)
+                .click(driver.findElement(By.cssSelector("select[name='purchase_price_currency_code']"))).sendKeys("Euros")
+                .doubleClick(driver.findElement(By.cssSelector("input[name='prices[USD]']"))).sendKeys(PRICE)
+                .doubleClick(driver.findElement(By.cssSelector("input[name='prices[EUR]']"))).sendKeys(PRICE)
                 .perform();
 
-        driver.findElement(By.cssSelector("input[name='new_images[]']")).sendKeys(filePath);
+        driver.findElement(By.cssSelector("button[name='save']")).click();
     }
 }
