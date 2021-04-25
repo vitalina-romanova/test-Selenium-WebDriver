@@ -1,11 +1,9 @@
 package SoftwareTestingTest;
 
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import java.util.List;
 import java.util.Set;
 
