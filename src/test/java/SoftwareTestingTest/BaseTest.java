@@ -21,7 +21,7 @@ public class BaseTest {
 
     @Before
 
-    public void loginByAdmin() throws InterruptedException {
+    public void loginByAdmin() {
         driver.get("http://localhost/litecart/admin/login.php");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
